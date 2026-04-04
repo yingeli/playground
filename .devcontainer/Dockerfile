@@ -1,6 +1,6 @@
 FROM node:24-bookworm-slim AS node
 
-FROM mcr.microsoft.com/dotnet/sdk:10.0
+FROM mcr.microsoft.com/dotnet/sdk:10.0-bookworm-slim
 
 ENV DOTNET_NOLOGO=1 \
     DOTNET_SKIP_FIRST_TIME_EXPERIENCE=1 \
@@ -21,6 +21,8 @@ RUN apt-get update \
         less \
         procps \
         tar \
+        libdbus-1-3 \
+        libwebkit2gtk-4.0-37 \
     && mkdir -p "$DOTNET_CLI_HOME" "$NUGET_PACKAGES" "$npm_config_cache" \
     && node --version \
     && npm --version \
