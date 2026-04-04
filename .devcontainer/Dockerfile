@@ -1,8 +1,6 @@
 FROM node:24-bookworm-slim AS node
 
-FROM mcr.microsoft.com/powershell:7.5-debian-bookworm-slim AS powershell
-
-FROM mcr.microsoft.com/dotnet/sdk:10.0-bookworm-slim
+FROM mcr.microsoft.com/dotnet/sdk:10.0
 
 ENV DOTNET_NOLOGO=1 \
     DOTNET_SKIP_FIRST_TIME_EXPERIENCE=1 \
@@ -15,7 +13,6 @@ ENV DOTNET_NOLOGO=1 \
     npm_config_cache=/workspaces/workiq-mcp/.npm-cache
 
 COPY --from=node /usr/local/ /usr/local/
-COPY --from=powershell /opt/microsoft/powershell /opt/microsoft/powershell
 
 RUN apt-get update \
     && apt-get install -y --no-install-recommends \
@@ -24,7 +21,6 @@ RUN apt-get update \
         less \
         procps \
         tar \
-    && ln -s /opt/microsoft/powershell/7/pwsh /usr/bin/pwsh \
     && mkdir -p "$DOTNET_CLI_HOME" "$NUGET_PACKAGES" "$npm_config_cache" \
     && node --version \
     && npm --version \
