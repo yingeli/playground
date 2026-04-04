@@ -52,7 +52,7 @@ ENV LANGUAGE=en_US.UTF-8
 ENV LC_ALL=en_US.UTF-8
 
 # Remove the `ubuntu` user and add a user `coder` so that you're not developing as the `root` user
-RUN userdel $(getent passwd 1000 | cut -d: -f1) \
+RUN userdel $(getent passwd 1000 | cut -d: -f1) && \
     useradd coder \
     --create-home \
     --shell=/bin/bash \
