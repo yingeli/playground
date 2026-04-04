@@ -17,13 +17,4 @@ RUN apt-get update && \
     libwebkit2gtk-4.0-37 \
     && rm -rf /var/lib/apt/lists/*
 
-# Remove the `ubuntu` user and add a user `coder` so that you're not developing as the `root` user
-RUN userdel $(getent passwd 1000 | cut -d: -f1) && \
-    useradd coder \
-    --create-home \
-    --shell=/bin/bash \
-    --uid=1000 \
-    --user-group && \
-    echo "coder ALL=(ALL) NOPASSWD:ALL" >>/etc/sudoers.d/nopasswd
-
-USER coder
+USER node
