@@ -1,34 +1,4 @@
-FROM node:24-bookworm-slim AS node
-
-FROM mcr.microsoft.com/dotnet/sdk:10.0
-
-ENV DOTNET_NOLOGO=1 \
-    DOTNET_SKIP_FIRST_TIME_EXPERIENCE=1 \
-    DOTNET_CLI_TELEMETRY_OPTOUT=1 \
-    DOTNET_CLI_HOME=/workspaces/workiq-mcp/.dotnet-home \
-    NUGET_PACKAGES=/workspaces/workiq-mcp/.nuget/packages \
-    NUGET_XMLDOC_MODE=skip \
-    NPM_CONFIG_UPDATE_NOTIFIER=false \
-    NPM_CONFIG_FUND=false \
-    npm_config_cache=/workspaces/workiq-mcp/.npm-cache
-
-COPY --from=node /usr/local/ /usr/local/
-
-RUN apt-get update \
-    && apt-get install -y --no-install-recommends \
-        ca-certificates \
-        git \
-        less \
-        procps \
-        tar \
-        libdbus-1-3 \
-        libwebkit2gtk-4.0-37 \
-    && mkdir -p "$DOTNET_CLI_HOME" "$NUGET_PACKAGES" "$npm_config_cache" \
-    && node --version \
-    && npm --version \
-    && pwsh --version \
-    && dotnet --version \
-    && rm -rf /var/lib/apt/lists/*
+FROM node:24
 
 USER root
 ENV DEBIAN_FRONTEND=noninteractive
@@ -43,6 +13,8 @@ RUN apt-get update && \
     locales \
     nano \
     sudo \
+    libdbus-1-3 \
+    libwebkit2gtk-4.0-37 \
     && rm -rf /var/lib/apt/lists/*
 
 # Generate the desired locale (en_US.UTF-8)
