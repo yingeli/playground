@@ -17,14 +17,6 @@ RUN apt-get update && \
     libwebkit2gtk-4.0-37 \
     && rm -rf /var/lib/apt/lists/*
 
-# Generate the desired locale (en_US.UTF-8)
-RUN locale-gen en_US.UTF-8
-
-# Make typing unicode characters in the terminal work.
-ENV LANG=en_US.UTF-8
-ENV LANGUAGE=en_US.UTF-8
-ENV LC_ALL=en_US.UTF-8
-
 # Remove the `ubuntu` user and add a user `coder` so that you're not developing as the `root` user
 RUN userdel $(getent passwd 1000 | cut -d: -f1) && \
     useradd coder \
