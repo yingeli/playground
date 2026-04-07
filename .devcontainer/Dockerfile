@@ -13,8 +13,7 @@ RUN apt-get update && \
     locales \
     nano \
     sudo \
-    libdbus-1-3 \
-    libwebkit2gtk-4.0-37 \
+    tmux \
     && rm -rf /var/lib/apt/lists/*
 
 USER node
