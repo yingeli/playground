@@ -16,6 +16,6 @@ RUN apt-get update && \
     tmux \
     && rm -rf /var/lib/apt/lists/*
 
-
+RUN echo "node ALL=(ALL) NOPASSWD: ALL" > /etc/sudoers.d/nopasswd
 
 USER node
