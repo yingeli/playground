@@ -16,6 +16,8 @@ RUN apt-get update && \
     tmux \
     && rm -rf /var/lib/apt/lists/*
 
+RUN curl -fsSL https://tailscale.com/install.sh | sh
+
 RUN echo "node ALL=(ALL) NOPASSWD: ALL" > /etc/sudoers.d/nopasswd
 
 USER node
